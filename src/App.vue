@@ -1,24 +1,46 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+   <h1>Corona Virus figures</h1>
+   <ul><li><country-list :countries="countries"/></li></ul>
+   <div>Total deaths: {{ totalDeaths }}</div>
+  
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import CountryList from './components/CountryList.vue'
 
 export default {
   name: 'App',
+  data() {
+    return {
+      countries: []
+    }
+  },
   components: {
-    HelloWorld
+    "country-list": CountryList
+  },
+  methods: {
+    get: function() {
+    fetch('https://api.covid19api.com/summary')
+    .then(res => res.json())
+    .then(countries => this.countries = countries)
+    // .then(this.countries.push())
+    },
+    totalDeaths: function() {
+      return countries.reduce((sum, country) => sum = country.TotalDeaths, 0);
+    }
+},
+  mounted() {
+    this.get()
   }
+  
 }
 </script>
 
 <style>
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
+  font-family: 'Lato', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
