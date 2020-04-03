@@ -1,7 +1,7 @@
 <template>
   <div id="app">
    <h1>Corona Virus figures</h1>
-   <ul><li><country-list :countries="countries"/></li></ul>
+   <country-list :countries="countries"/>
    <div>Total deaths: {{ totalDeaths }}</div>
   
   </div>
@@ -25,11 +25,14 @@ export default {
     fetch('https://api.covid19api.com/summary')
     .then(res => res.json())
     .then(countries => this.countries = countries)
-    // .then(this.countries.push())
+    .catch( error => { console.log(error); })
     },
+    
+},
+  computed: {
     totalDeaths: function() {
-      return countries.reduce((sum, country) => sum = country.TotalDeaths, 0);
-    }
+      return this.countries.reduce((sum, country) => sum + country.TotalDeaths, 0);
+        }    
 },
   mounted() {
     this.get()
