@@ -6,22 +6,41 @@
    <div>Total confirmed: {{ totalConfirmed }}</div>
    <div>Total recovered: {{ totalRecovered }}</div>
    <div>Total deaths: {{ totalDeaths }}</div>
-  
+
+<countries-chart id="pie-chart" :countries="countries"></countries-chart>
+
+   <label for="country-selected">Select a Country:</label>
+      <select id="country-selected" v-model="selectedCountry">
+        <option disabled value="">Select a country</option>
+        <option v-for="(country, index) in countries" :country="country" :key="index">{{country.Country}}</option>
+      </select>
+
+ <country-info
+        v-if="selectedCountry"
+        :country="selectedCountry"
+      ></country-info>
+
   </div>
 </template>
 
 <script>
 import CountryList from './components/CountryList.vue'
+import CountryInfo from './components/CountryInfo.vue'
+import CountryChart from './components/CountryChart.vue'
+
 
 export default {
   name: 'App',
   data() {
     return {
-      countries: []
+      countries: [],
+      selectedCountry: null,
+      pinnedCountries: []
     }
   },
   components: {
-    "country-list": CountryList
+    "country-list": CountryList,
+    "countries-chart": CountryChart
   },
   methods: {
     get: function() {
@@ -30,7 +49,9 @@ export default {
     .then(data => this.countries = data.Countries)
     .catch( error => { console.log(error); })
     },
-    
+    addToPinnedd: function() {
+      this.pinnedCountries.push(this.selectedCountry)
+    }
 },
   computed: {
     totalNewConfirmed: function() {
@@ -44,10 +65,11 @@ export default {
     },  
     totalDeaths: function() {
       return this.countries.reduce((sum, country) => sum + country.TotalDeaths, 0);
-    }  
+    }
 },
   mounted() {
-    this.get()
+    this.get(),
+     eventBus.$on("country-selected", (country) => (this.selectedCountry = country));
   }
   
 }
