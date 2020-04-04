@@ -30,7 +30,4 @@ export default {
 
 <style scoped>
 
-.select {
-  grid-area: 5 / 3 / span 1 / span 2;
-}
 </style>

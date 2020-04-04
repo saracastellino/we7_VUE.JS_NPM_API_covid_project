@@ -1,24 +1,23 @@
 <template>
   <div id="app">
     <div class="container">
-      <header>
+      <header class="blurred-box">
         <h1>Corona Virus <br> Real time updates</h1>
       </header>
 
-      <body>
-        <section class="computed-container">
-            <span><h2>Total new confirmed:</h2>{{ totalNewConfirmed }}</span>
-            <span><h2>Total confirmed:</h2>{{ totalConfirmed }}</span>
-            <span><h2>Total recovered:</h2>{{ totalRecovered }}</span>
+      
+        <section>
+          <span><h2>Total new cases confirmed:</h2>{{ totalNewConfirmed }}</span>
+            <span><h2>Total cases confirmed:</h2>{{ totalConfirmed }}</span>
+            <span><h2>Total cases recovered:</h2>{{ totalRecovered }}</span>
             <span><h2>Total deaths:</h2>{{ totalDeaths }}</span>
         </section>
-
+            
       <div class=select>
         <country-list :countries="countries"/>
         <country-info :country="selectedCountry"></country-info>
       </div>
-        
-      </body>
+   
     </div>
   </div>
 </template>
@@ -78,58 +77,66 @@ export default {
 </script>
 
 <style>
+
+.container {
+  display: grid;
+  max-width: 100%;
+  position: relative;
+  margin: auto;
+  grid-gap: 5px;
+  grid-template-columns: repeat(12, 100px);
+  grid-template-rows: repeat(12, 100px); 
+}
+
 body {
+  grid-area: 4 / 1 / span 12 / span 12;
   font-family: 'Lato', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: rgb(41, 41, 41);
-  margin-top: 60px;
-  font-size: 3vw;
-}
-
-.container {
-  display: grid;
-  max-width: 900px;
-  position: relative;
-  margin: auto;
-  grid-gap: 5px;
-  grid-template-columns: repeat(8, 100px);
-  grid-template-rows: repeat(8, 100px); 
+  font-size: 2vw;
+  z-index: -10;
 }
 
 header {
-  grid-area: 1 / 1 / span 3 / span 9;
-   background-image: url("./assets/download.jpeg");
-  /* background-repeat: no-repeat;
-  background-position: center; */
-   font-size: 1.5em;
+  grid-area: 1 / 1 / span 3 / span 13;
+  background-image: url("./assets/download.jpeg");
+  /* background-attachment: fixed; */
+  background-size: cover;
+  max-width: 100%;
+  height: auto;
   color: #ffffff;
   text-align: right;
- 
 }
 
 h1 {
+  font-size: 7vw;
   margin-right: 3vw;
+  padding-bottom: 2vw;
+  margin-bottom: 2vw;
 }
 
-.computed-container {
-  grid-area: 3 / 1 / span 2 / span 9;
-  width: 100%;
-  display: flex;
-  flex-direction: row;
+section{
+  grid-area: 4 / 3 / span 7 / span 8;
+  background:rgba(100,100,100, 0.6);
 }
 
 span {
+grid-area: 4 / 1 / span 3 / span 10;
+  height: 20vw;
+  margin: 1rem;
+  display: inline-table;
+  /* position: absolute; */
+  width: 20vw;
   margin: 2rem 2rem;
   padding: 1rem 1rem;
-  border: 0.5vw solid #db1e1e;
+  border: 0.5vw solid #5e1010;
   background: #ffffff;
- 
 }
 
-.select {
-  grid-area: 5 / 3 / span 1 / span 2;
+div.select {
+  grid-area: 12 / 6 / span 1 / span 2;
 }
 
 
