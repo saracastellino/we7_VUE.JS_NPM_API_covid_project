@@ -7,11 +7,12 @@
     <p>Total deaths: {{country.TotalDeaths}}</p>
     <p>New recovered: {{country.NewRecovered}}</p>
     <p>Total recovered: {{country.TotalRecovered}}</p>
-    <!-- CHART -->
+    <!-- <countries-chart id="pie-chart" :countries="countries"></countries-chart> -->
   </div>
 </template>
 
 <script>
+// import CountryChart from './components/CountryChart.vue'
 import { eventBus } from '../main.js';
 
 export default {

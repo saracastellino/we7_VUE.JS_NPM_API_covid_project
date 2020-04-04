@@ -1,19 +1,29 @@
 <template>
 <div>
-  <ul>
-     <li v-for="(country, index) in countries" 
-        :country="country" :key="index">{{ country }}</li>
-  </ul>
-  
+   <label for="country-selected">Select a Country:</label>
+      <select v-on:click="handleSelect" id="country-selected" v-model="selectedCountry">
+        <option disabled value="">Select a country</option>
+        <option v-for="(country, index) in countries" :country="country" :key="index">{{country.Country}}</option>
+      </select>
 </div>
- 
 </template>
 
 <script>
+import { eventBus } from '../main.js'
+
 export default {
   name: 'country-list',
-  props: ["countries"]
- 
+  data(){
+    return {
+      "selectedCountry": {},
+    }
+  },
+  props: ["countries"],
+  methods: {
+    handleSelect(){
+      eventBus.$emit('country-selected', this.selectedCountry)
+    }
+  }
 }
 </script>
 

@@ -11,10 +11,10 @@ import { GChart } from 'vue-google-charts';
 
 export default {
     name: "countries-chart",
-    props: ["country"],    
+    props: ["selectedCountry"],    
     data() {
-        return {
-              chartData: [
+     return {
+        chartData: [
           this.totalNewConfirmed,
           this.totalConfirmed,
           this.totalRecovered,
@@ -22,7 +22,7 @@ export default {
           ],
         chartOptions: {
             chart: {
-            title: "Covid-19 graph",
+            title: `Covid-19 in {{ this.country }}`,
             is3D: true,
             backgroundColor: '#eeeeee'
              }

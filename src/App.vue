@@ -1,24 +1,14 @@
 <template>
   <div id="app">
    <h1>Corona Virus figures</h1>
-   <!-- <country-list :countries="countries"/> -->
+   
    <div>Total new confirmed: {{ totalNewConfirmed }}</div>
    <div>Total confirmed: {{ totalConfirmed }}</div>
    <div>Total recovered: {{ totalRecovered }}</div>
    <div>Total deaths: {{ totalDeaths }}</div>
 
-<countries-chart id="pie-chart" :countries="countries"></countries-chart>
-
-   <label for="country-selected">Select a Country:</label>
-      <select id="country-selected" v-model="selectedCountry">
-        <option disabled value="">Select a country</option>
-        <option v-for="(country, index) in countries" :country="country" :key="index">{{country.Country}}</option>
-      </select>
-
- <country-info
-        v-if="selectedCountry"
-        :country="selectedCountry"
-      ></country-info>
+  <country-list :countries="countries"/>
+  <country-info :country="selectedCountry"></country-info>
 
   </div>
 </template>
@@ -27,6 +17,7 @@
 import CountryList from './components/CountryList.vue'
 import CountryInfo from './components/CountryInfo.vue'
 import CountryChart from './components/CountryChart.vue'
+import { eventBus } from './main.js';
 
 
 export default {
@@ -35,11 +26,12 @@ export default {
     return {
       countries: [],
       selectedCountry: null,
-      pinnedCountries: []
+      // pinnedCountries: []
     }
   },
   components: {
     "country-list": CountryList,
+    "country-info": CountryInfo,
     "countries-chart": CountryChart
   },
   methods: {
@@ -69,7 +61,7 @@ export default {
 },
   mounted() {
     this.get(),
-     eventBus.$on("country-selected", (country) => (this.selectedCountry = country));
+     eventBus.$on("country-selected", (country) => {this.selectedCountry = country});
   }
   
 }
