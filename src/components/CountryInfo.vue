@@ -17,7 +17,16 @@ import { eventBus } from '../main.js';
 
 export default {
   name: 'country-info',
-  props: ["country"]
+   data(){
+    return {
+      country: null
+    }
+  },
+  mounted(){
+    eventBus.$on('country-selected', (country) => {
+      this.country = country
+    })
+  }
 }
 </script>
 
