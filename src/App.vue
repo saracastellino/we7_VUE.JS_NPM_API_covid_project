@@ -1,13 +1,13 @@
 <template>
   <div id="app">
     <div class="container">
-      <header class="blurred-box">
+      <header>
         <h1>Corona Virus <br> Real time updates</h1>
       </header>
 
        <section>
-          <span><h2>Total new cases confirmed:</h2><h2 class="red">{{ totalNewConfirmed | formatNumber }}</h2></span>
-          <span><h2>Total cases confirmed:</h2> <br> <h2 class="red">{{ totalConfirmed | formatNumber }}</h2></span>
+          <span><h2>Total new cases:</h2> <br> <h2 class="red">{{ totalNewConfirmed | formatNumber }}</h2></span>
+          <span><h2>Total cases:</h2> <br> <h2 class="red">{{ totalConfirmed | formatNumber }}</h2></span>
           <span><h2>Total cases recovered:</h2> <br> <h2 class="red">{{ totalRecovered | formatNumber }}</h2></span>
           <span><h2>Total deaths:</h2> <br> <h2 class="red">{{ totalDeaths | formatNumber }}</h2></span>
       </section>
@@ -139,7 +139,7 @@ export default {
   section{
     grid-area: 4 / 4 / span 7 / span 8;
     background:rgba(100,100,100, 0.6);
-    margin-bottom: 0.47vw;
+    margin-bottom: 0.46vw;
   }
 
   span {
