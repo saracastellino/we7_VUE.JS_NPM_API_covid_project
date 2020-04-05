@@ -121,7 +121,7 @@ export default {
   }
 
   h1 {
-    font-size: 7vw;
+    font-size: 5em;
     margin-right: 3vw;
     padding-bottom: 2vw;
     margin-bottom: 2vw;
@@ -133,13 +133,13 @@ export default {
     color: #ffffff;
     margin: 2rem 2rem;
     padding: 1rem 1rem;
-    border: 0.5vw solid #5e1010;
     background: #5e1010;
   }
 
   section{
     grid-area: 4 / 4 / span 7 / span 8;
     background:rgba(100,100,100, 0.6);
+    margin-bottom: 0.47vw;
   }
 
   span {
@@ -148,7 +148,7 @@ export default {
     display: inline-table;
     margin: 1.5rem 1.5rem;
     padding: 0.5rem 0.5rem;
-    border: 0.5vw solid #5e1010;
+    border: 0.3vw solid #5e1010;
     background: #ffffff;
   }
 
@@ -159,13 +159,14 @@ export default {
     padding-bottom: 6vw;
     color: #ffffff;
     z-index: 1;
+    margin-left: 0.3em;
   }
 
   div.selected {
     grid-area: 4 / 1;
     background:rgba(3, 3, 3, 0.904);
-    padding-bottom: 15em;
-    padding-top: 1vw;
+    padding-bottom: 15.35em;
+    padding-top: 0.5vw;
   }
 
   #pie-chart {
@@ -175,13 +176,15 @@ export default {
 
   .infographic {
     grid-area: 8 / 1;
-    width: 19.3em;
+    width: 19em;
+    margin-left: 0.3em;
   }
 
   .community {
     grid-area: 6 / 1 / span 2 / span 3;
-    height: 10.15em;
+    height: 10em;
     margin-top: 20px;
+    margin-left: 0.3em;
   }
 
 </style>
