@@ -15,9 +15,11 @@
       <div class="select" :class="{selected: selectedCountry.length > 1}">
         <country-list :countries="countries"/>
         <country-info :country="selectedCountry"></country-info>
+        <country-chart id="pie-chart" :country="selectedCountry"></country-chart>
+        <!-- <pinned-countries :country="pinnedCountries"></pinned-countries> -->
       </div>
        
-       <img class="infographic" src="./assets/COVID-19-infographic.png" alt="COVID-19 infographic">
+       <img class="infographic" src="./assets/COVID-19-infographic.png" fluid-grow alt="COVID-19 infographic">
        <img class="community" src="./assets/community.jpeg" alt="Community action">
 
     </div>
@@ -28,6 +30,7 @@
 import CountryList from './components/CountryList.vue'
 import CountryInfo from './components/CountryInfo.vue'
 import CountryChart from './components/CountryChart.vue'
+// import CountryPin from './components/CountryPin.vue'
 import { eventBus } from './main.js';
 
 
@@ -37,32 +40,30 @@ export default {
     return {
       countries: [],
       selectedCountry: [],
+      country: null
       // pinnedCountries: []
     }
   },
   components: {
     "country-list": CountryList,
     "country-info": CountryInfo,
-    "countries-chart": CountryChart
+    "country-chart": CountryChart
+    // "pinned-countries": CountryPin
   },
-
-
   methods: {
     get: function() {
       fetch('https://api.covid19api.com/summary')
       .then(res => res.json())
       .then(data => this.countries = data.Countries)
       .catch( error => { console.log(error); })
-      }
-    
+      },
     // addToPinnedd: function() {
     //   this.pinnedCountries.push(this.selectedCountry)
     // }
   },
-  filter: {
-    formatNumber: function (num) {
-        return num.toString.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-        // return num.toLocaleString();
+  filters: {
+    formatNumber: function (value) {
+        return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
       }
   },
   computed: {
@@ -83,7 +84,6 @@ export default {
     this.get()
      eventBus.$on("country-selected", (country) => {this.selectedCountry = country});
   }
-  
 }
 
  
@@ -145,11 +145,11 @@ section{
 }
 
 span {
-  height: 20vw;
+  height: 280px;
+  width: 280px;
   display: inline-table;
-  width: 20vw;
-  margin: 2rem 2rem;
-  padding: 1rem 1rem;
+  margin: 1.5rem 1.5rem;
+  padding: 0.5rem 0.5rem;
   border: 0.5vw solid #5e1010;
   background: #ffffff;
 }
@@ -169,12 +169,12 @@ div.selected {
 
 .infographic {
   grid-area: 8 / 1;
-  width: 25vw;
+  width: 23.6vw;
 }
 
 .community {
   grid-area: 6 / 1;
-  height: 13.1vw;
+  height: 12.4vw;
   margin-top: 20px;
 }
 

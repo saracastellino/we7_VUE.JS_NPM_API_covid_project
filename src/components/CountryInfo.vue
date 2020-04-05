@@ -7,7 +7,8 @@
     <p>Total deaths: {{country.TotalDeaths}}</p>
     <p>New recovered: {{country.NewRecovered}}</p>
     <p>Total recovered: {{country.TotalRecovered}}</p>
-    <!-- <countries-chart id="pie-chart" :countries="countries"></countries-chart> -->
+    <!-- <country-chart id="pie-chart" :country="selectedCountry"></country-chart> -->
+    <!-- <button v-on:click="handleButton">Pin Country</button> -->
   </div>
 </template>
 
@@ -22,10 +23,15 @@ export default {
       country: null
     }
   },
+  // props: ["country"],
+  // methods: {
+  //   handleButton(){ 
+  //    eventBus.$emit('pinned-country', this.country.Country)
+  //   }
+  // },
   mounted(){
     eventBus.$on('country-selected', (country) => {
-      this.country = country
-    })
+      this.country = country});    
   }
 }
 </script>
