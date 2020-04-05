@@ -15,13 +15,14 @@ export default {
   name: 'country-list',
   data(){
     return {
-      "selectedCountry": [],
+      "selectedCountry": {},
     }
   },
   props: ["countries"],
   methods: {
     handleSelect(){
       eventBus.$emit('country-selected', this.selectedCountry)
+      alert("You selected something...")
     }
   }
 }

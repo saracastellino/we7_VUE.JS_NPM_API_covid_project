@@ -7,14 +7,14 @@
 
        <section>
           <span><h2>Total new cases confirmed:</h2><h2 class="red">{{ totalNewConfirmed | formatNumber }}</h2></span>
-            <span><h2>Total cases confirmed:</h2> <br> <h2 class="red">{{ totalConfirmed | formatNumber }}</h2></span>
-            <span><h2>Total cases recovered:</h2> <br> <h2 class="red">{{ totalRecovered | formatNumber }}</h2></span>
-            <span><h2>Total deaths:</h2> <br> <h2 class="red">{{ totalDeaths | formatNumber }}</h2></span>
+          <span><h2>Total cases confirmed:</h2> <br> <h2 class="red">{{ totalConfirmed | formatNumber }}</h2></span>
+          <span><h2>Total cases recovered:</h2> <br> <h2 class="red">{{ totalRecovered | formatNumber }}</h2></span>
+          <span><h2>Total deaths:</h2> <br> <h2 class="red">{{ totalDeaths | formatNumber }}</h2></span>
       </section>
             
       <div class="select" :class="{selected: selectedCountry.length > 1}">
         <country-list :countries="countries"/>
-        <country-info :country="selectedCountry"></country-info>
+        <country-info :country="country"></country-info>
         <country-chart id="pie-chart" :country="selectedCountry"></country-chart>
         <!-- <pinned-countries :country="pinnedCountries"></pinned-countries> -->
       </div>
@@ -39,7 +39,7 @@ export default {
   data() {
     return {
       countries: [],
-      selectedCountry: [],
+      selectedCountry: {},
       country: null
       // pinnedCountries: []
     }
@@ -91,93 +91,96 @@ export default {
 
 <style>
 
-.container {
-  display: grid;
-  max-width: 100%;
-  position: relative;
-  margin: auto;
-  grid-gap: 5px;
-  grid-template-columns: repeat(10, 100px);
-  grid-template-rows: repeat(10, 100px); 
-  background-image: url("./assets/background.jpeg");
-  background-position: cover;
-  background-repeat:round;
-  font-family: 'Lato', sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: rgb(65, 65, 65);
-  font-size: 1,8vw;
-}
+  .container {
+    display: grid;
+    max-width: 100%;
+    position: relative;
+    margin: auto;
+    grid-gap: 5px;
+    grid-template-columns: repeat(10, 100px);
+    grid-template-rows: repeat(10, 100px); 
+    background-image: url("./assets/background.jpeg");
+    background-position: cover;
+    background-repeat:round;
+    font-family: 'Lato', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-align: center;
+    color: rgb(65, 65, 65);
+    font-size: 1,8vw;
+  }
 
-header {
-  grid-area: 1 / 1 / span 3 / span 12;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  background-image: url("./assets/download.jpeg");
-  background-size: cover;
-  max-width: 100%;
-  height: auto;
-  color: #ffffff;
-  text-align: right;
-}
+  header {
+    grid-area: 1 / 1 / span 3 / span 12;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    background-image: url("./assets/download.jpeg");
+    background-size: cover;
+    max-width: 100%;
+    height: auto;
+    color: #ffffff;
+    text-align: right;
+  }
 
-h1 {
-  font-size: 7vw;
-  margin-right: 3vw;
-  padding-bottom: 2vw;
-  margin-bottom: 2vw;
-  text-shadow: 0.5vw 0.5vw #494949;
-}
+  h1 {
+    font-size: 7vw;
+    margin-right: 3vw;
+    padding-bottom: 2vw;
+    margin-bottom: 2vw;
+    text-shadow: 0.5vw 0.5vw #494949;
+  }
 
-.red {
-  font-size: 3vw;
-  color: #ffffff;
-  margin: 2rem 2rem;
-  padding: 1rem 1rem;
-  border: 0.5vw solid #5e1010;
-  background: #5e1010;
-}
+  .red {
+    font-size: 3vw;
+    color: #ffffff;
+    margin: 2rem 2rem;
+    padding: 1rem 1rem;
+    border: 0.5vw solid #5e1010;
+    background: #5e1010;
+  }
 
-section{
-  grid-area: 4 / 4 / span 7 / span 8;
-  background:rgba(100,100,100, 0.6);
-}
+  section{
+    grid-area: 4 / 4 / span 7 / span 8;
+    background:rgba(100,100,100, 0.6);
+  }
 
-span {
-  height: 280px;
-  width: 280px;
-  display: inline-table;
-  margin: 1.5rem 1.5rem;
-  padding: 0.5rem 0.5rem;
-  border: 0.5vw solid #5e1010;
-  background: #ffffff;
-}
+  span {
+    height: 280px;
+    width: 280px;
+    display: inline-table;
+    margin: 1.5rem 1.5rem;
+    padding: 0.5rem 0.5rem;
+    border: 0.5vw solid #5e1010;
+    background: #ffffff;
+  }
 
-div.select {
-  grid-area: 4 / 1 / span 2 / span 3;
-   background:rgba(100,100,100, 0.6);
-   padding-top: 1.5vw;
-   color: #ffffff;
-}
+  div.select {
+    grid-area: 4 / 1 / span 2 / span 3;
+    background:rgba(100,100,100, 0.6);
+    padding-top: 1.5vw;
+    color: #ffffff;
+  }
 
-div.selected {
-  grid-area: 4 / 1 / span 7 / span 3;
-   background:rgba(3, 3, 3, 0.849);
-   z-index: 10;
-}
+  div.selected {
+    grid-area: 4 / 1 / span 7 / span 3;
+    background:rgba(3, 3, 3, 0.849);
+    z-index: 10;
+  }
 
-.infographic {
-  grid-area: 8 / 1;
-  width: 23.6vw;
-}
+  #pie-chart {
+    height: 30em;
+    width: max;
+  }
 
-.community {
-  grid-area: 6 / 1;
-  height: 12.4vw;
-  margin-top: 20px;
-}
+  .infographic {
+    grid-area: 8 / 1 / span 2 / span 3;
+    width: 28.3vw;
+  }
 
-   
+  .community {
+    grid-area: 6 / 1 / span 2 / span 3;
+    height: 14.9vw;
+    margin-top: 20px;
+  }
 
 </style>

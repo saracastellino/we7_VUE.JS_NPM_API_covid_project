@@ -7,13 +7,13 @@
     <p>Total deaths: {{country.TotalDeaths}}</p>
     <p>New recovered: {{country.NewRecovered}}</p>
     <p>Total recovered: {{country.TotalRecovered}}</p>
-    <!-- <country-chart id="pie-chart" :country="selectedCountry"></country-chart> -->
+    <country-chart id="pie-chart" :country="country"></country-chart>
     <!-- <button v-on:click="handleButton">Pin Country</button> -->
   </div>
 </template>
 
 <script>
-// import CountryChart from './components/CountryChart.vue'
+import CountryChart from './CountryChart.vue'
 import { eventBus } from '../main.js';
 
 export default {
@@ -30,8 +30,7 @@ export default {
   //   }
   // },
   mounted(){
-    eventBus.$on('country-selected', (country) => {
-      this.country = country});    
+    eventBus.$on('country-selected', (country) => {this.country = country})
   }
 }
 </script>
