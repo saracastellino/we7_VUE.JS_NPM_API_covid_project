@@ -7,10 +7,10 @@
 
       
         <section>
-          <span><h2>Total new cases confirmed:</h2>{{ totalNewConfirmed }}</span>
-            <span><h2>Total cases confirmed:</h2>{{ totalConfirmed }}</span>
-            <span><h2>Total cases recovered:</h2>{{ totalRecovered }}</span>
-            <span><h2>Total deaths:</h2>{{ totalDeaths }}</span>
+          <span><h2>Total new cases confirmed:</h2>{{ totalNewConfirmed | formatNumber }}</span>
+            <span><h2>Total cases confirmed:</h2>{{ totalConfirmed | formatNumber }}</span>
+            <span><h2>Total cases recovered:</h2>{{ totalRecovered | formatNumber }}</span>
+            <span><h2>Total deaths:</h2>{{ totalDeaths | formatNumber }}</span>
         </section>
             
       <div class=select>
@@ -45,15 +45,21 @@ export default {
   },
   methods: {
     get: function() {
-    fetch('https://api.covid19api.com/summary')
-    .then(res => res.json())
-    .then(data => this.countries = data.Countries)
-    .catch( error => { console.log(error); })
-    },
-    addToPinnedd: function() {
-      this.pinnedCountries.push(this.selectedCountry)
-    }
-},
+      fetch('https://api.covid19api.com/summary')
+      .then(res => res.json())
+      .then(data => this.countries = data.Countries)
+      .catch( error => { console.log(error); })
+      }
+    // addToPinnedd: function() {
+    //   this.pinnedCountries.push(this.selectedCountry)
+    // }
+  },
+  filter: {
+    formatNumber: function (num) {
+        return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        // return num.toLocaleString();
+      }
+  },
   computed: {
     totalNewConfirmed: function() {
       return this.countries.reduce((sum, country) => sum + country.NewConfirmed, 0);
@@ -90,12 +96,14 @@ export default {
 
 body {
   grid-area: 4 / 1 / span 12 / span 12;
+  background-image: url("./assets/background.png");
+  background-position: cover;
   font-family: 'Lato', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: rgb(41, 41, 41);
-  font-size: 2vw;
+  font-size: 1,8vw;
   z-index: -10;
 }
 
@@ -118,14 +126,13 @@ h1 {
 }
 
 section{
-  grid-area: 4 / 3 / span 7 / span 8;
+  grid-area: 4 / 5 / span 7 / span 8;
   background:rgba(100,100,100, 0.6);
 }
 
 span {
 grid-area: 4 / 1 / span 3 / span 10;
   height: 20vw;
-  margin: 1rem;
   display: inline-table;
   /* position: absolute; */
   width: 20vw;
@@ -136,8 +143,9 @@ grid-area: 4 / 1 / span 3 / span 10;
 }
 
 div.select {
-  grid-area: 12 / 6 / span 1 / span 2;
+  grid-area: 4 / 1 / span 2 / span 3;
+   background:rgba(100,100,100, 0.6);
 }
-
+/* IF COUNTRY SELECTED grid-area: 4 / 1 / span 4 / span 3; */
 
 </style>
