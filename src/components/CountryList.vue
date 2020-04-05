@@ -1,6 +1,6 @@
 <template>
 <div class="select">
-   <label for="country-selected">View Country updates:</label>
+   <label for="country-selected"><h2>View Country updates:</h2></label>
       <select v-on:change.prevent="handleSelect" id="country-selected" v-model="selectedCountry">
         <option disabled value="">Select a country</option>
         <option v-for="(country, index) in countries" :country="country" :key="index">{{country.Country}}</option>
@@ -21,8 +21,13 @@ export default {
   props: ["countries"],
   methods: {
     handleSelect(){
-      eventBus.$emit('country-selected', this.selectedCountry)
-      alert("You selected something...")
+      var selectedCountry;
+      this.countries.forEach(country => {
+        if(country.Country == this.selectedCountry)
+        selectedCountry = country;
+      });
+      eventBus.$emit('country-selected', selectedCountry)
+
     }
   }
 }

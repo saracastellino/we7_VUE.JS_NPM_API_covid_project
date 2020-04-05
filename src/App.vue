@@ -12,10 +12,10 @@
           <span><h2>Total deaths:</h2> <br> <h2 class="red">{{ totalDeaths | formatNumber }}</h2></span>
       </section>
             
-      <div class="select" :class="{selected: selectedCountry.length > 1}">
+      <div class="select">
         <country-list :countries="countries"/>
-        <country-info :country="country"></country-info>
-        <country-chart id="pie-chart" :country="selectedCountry"></country-chart>
+        <country-info :country="country" :class="{selected: country = selectedCountry}"/>
+        <GChart id="pie-chart" :country="country"/>
         <!-- <pinned-countries :country="pinnedCountries"></pinned-countries> -->
       </div>
        
@@ -47,7 +47,7 @@ export default {
   components: {
     "country-list": CountryList,
     "country-info": CountryInfo,
-    "country-chart": CountryChart
+    "GChart": CountryChart
     // "pinned-countries": CountryPin
   },
   methods: {
@@ -85,8 +85,6 @@ export default {
      eventBus.$on("country-selected", (country) => {this.selectedCountry = country});
   }
 }
-
- 
 </script>
 
 <style>
@@ -158,28 +156,31 @@ export default {
     grid-area: 4 / 1 / span 2 / span 3;
     background:rgba(100,100,100, 0.6);
     padding-top: 1.5vw;
+    padding-bottom: 6vw;
     color: #ffffff;
+    z-index: 1;
   }
 
   div.selected {
-    grid-area: 4 / 1 / span 7 / span 3;
-    background:rgba(3, 3, 3, 0.849);
-    z-index: 10;
+    grid-area: 4 / 1;
+    background:rgba(3, 3, 3, 0.904);
+    padding-bottom: 15em;
+    padding-top: 1vw;
   }
 
   #pie-chart {
-    height: 30em;
+    height: 5em;
     width: max;
   }
 
   .infographic {
-    grid-area: 8 / 1 / span 2 / span 3;
-    width: 28.3vw;
+    grid-area: 8 / 1;
+    width: 19.3em;
   }
 
   .community {
     grid-area: 6 / 1 / span 2 / span 3;
-    height: 14.9vw;
+    height: 10.15em;
     margin-top: 20px;
   }
 

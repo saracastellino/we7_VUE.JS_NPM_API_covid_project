@@ -7,7 +7,7 @@
     <p>Total deaths: {{country.TotalDeaths}}</p>
     <p>New recovered: {{country.NewRecovered}}</p>
     <p>Total recovered: {{country.TotalRecovered}}</p>
-    <country-chart id="pie-chart" :country="country"></country-chart>
+    <GChart id="pie-chart" :country="country"/>
     <!-- <button v-on:click="handleButton">Pin Country</button> -->
   </div>
 </template>
@@ -23,7 +23,9 @@ export default {
       country: null
     }
   },
-  // props: ["country"],
+  components: {
+    "GChart": CountryChart
+  },
   // methods: {
   //   handleButton(){ 
   //    eventBus.$emit('pinned-country', this.country.Country)

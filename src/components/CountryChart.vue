@@ -1,30 +1,23 @@
 <template>
-	<g-chart
+	<GChart
 		type="PieChart"
-    :data="chartData"
+    :data="this.country"  
 		:options="chartOptions"		
-	></g-chart>
+	/>
 </template>
 
 <script>
+import CountryInfo from './components/CountryInfo.vue'
 import { GChart } from 'vue-google-charts';
 import { eventBus } from '../main.js';
 
 export default {
-  name: "country-chart",
+  name: "GChart",
   props: ["country"],    
   data() {
     return {
-      chartData: [
-          this.country        
-        // this.country.NewConfirmed,
-        // this.country.TotalConfirmed,
-        // this.country.TotalRecovered,
-        // this.country.TotalDeaths
-        ],
       chartOptions: {
           chart: {
-          title: `Covid-19 in {{ this }}`,
           is3D: true,
           backgroundColor: '#eeeeee'
             }
@@ -32,9 +25,6 @@ export default {
       };
   },
 	components: {
-		"g-chart": GChart
-  },
-  mounted(){
-    eventBus.$on('country-selected', (country) => {this.country = country})
+		GChart
   }
 };
