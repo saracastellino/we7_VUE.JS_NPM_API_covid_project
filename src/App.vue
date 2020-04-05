@@ -5,19 +5,21 @@
         <h1>Corona Virus <br> Real time updates</h1>
       </header>
 
-      
-        <section>
-          <span><h2>Total new cases confirmed:</h2>{{ totalNewConfirmed | formatNumber }}</span>
-            <span><h2>Total cases confirmed:</h2>{{ totalConfirmed | formatNumber }}</span>
-            <span><h2>Total cases recovered:</h2>{{ totalRecovered | formatNumber }}</span>
-            <span><h2>Total deaths:</h2>{{ totalDeaths | formatNumber }}</span>
-        </section>
+       <section>
+          <span><h2>Total new cases confirmed:</h2><h2 class="red">{{ totalNewConfirmed | formatNumber }}</h2></span>
+            <span><h2>Total cases confirmed:</h2> <br> <h2 class="red">{{ totalConfirmed | formatNumber }}</h2></span>
+            <span><h2>Total cases recovered:</h2> <br> <h2 class="red">{{ totalRecovered | formatNumber }}</h2></span>
+            <span><h2>Total deaths:</h2> <br> <h2 class="red">{{ totalDeaths | formatNumber }}</h2></span>
+      </section>
             
-      <div class=select>
+      <div class="select" :class="{selected: selectedCountry.length > 1}">
         <country-list :countries="countries"/>
         <country-info :country="selectedCountry"></country-info>
       </div>
-   
+       
+       <img class="infographic" src="./assets/COVID-19-infographic.png" alt="COVID-19 infographic">
+       <img class="community" src="./assets/community.jpeg" alt="Community action">
+
     </div>
   </div>
 </template>
@@ -34,7 +36,7 @@ export default {
   data() {
     return {
       countries: [],
-      selectedCountry: null,
+      selectedCountry: [],
       // pinnedCountries: []
     }
   },
@@ -43,6 +45,8 @@ export default {
     "country-info": CountryInfo,
     "countries-chart": CountryChart
   },
+
+
   methods: {
     get: function() {
       fetch('https://api.covid19api.com/summary')
@@ -50,13 +54,14 @@ export default {
       .then(data => this.countries = data.Countries)
       .catch( error => { console.log(error); })
       }
+    
     // addToPinnedd: function() {
     //   this.pinnedCountries.push(this.selectedCountry)
     // }
   },
   filter: {
     formatNumber: function (num) {
-        return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        return num.toString.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
         // return num.toLocaleString();
       }
   },
@@ -80,6 +85,8 @@ export default {
   }
   
 }
+
+ 
 </script>
 
 <style>
@@ -90,27 +97,24 @@ export default {
   position: relative;
   margin: auto;
   grid-gap: 5px;
-  grid-template-columns: repeat(12, 100px);
-  grid-template-rows: repeat(12, 100px); 
-}
-
-body {
-  grid-area: 4 / 1 / span 12 / span 12;
-  background-image: url("./assets/background.png");
+  grid-template-columns: repeat(10, 100px);
+  grid-template-rows: repeat(10, 100px); 
+  background-image: url("./assets/background.jpeg");
   background-position: cover;
+  background-repeat:round;
   font-family: 'Lato', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: rgb(41, 41, 41);
+  color: rgb(65, 65, 65);
   font-size: 1,8vw;
-  z-index: -10;
 }
 
 header {
-  grid-area: 1 / 1 / span 3 / span 13;
+  grid-area: 1 / 1 / span 3 / span 12;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
   background-image: url("./assets/download.jpeg");
-  /* background-attachment: fixed; */
   background-size: cover;
   max-width: 100%;
   height: auto;
@@ -123,18 +127,26 @@ h1 {
   margin-right: 3vw;
   padding-bottom: 2vw;
   margin-bottom: 2vw;
+  text-shadow: 0.5vw 0.5vw #494949;
+}
+
+.red {
+  font-size: 3vw;
+  color: #ffffff;
+  margin: 2rem 2rem;
+  padding: 1rem 1rem;
+  border: 0.5vw solid #5e1010;
+  background: #5e1010;
 }
 
 section{
-  grid-area: 4 / 5 / span 7 / span 8;
+  grid-area: 4 / 4 / span 7 / span 8;
   background:rgba(100,100,100, 0.6);
 }
 
 span {
-grid-area: 4 / 1 / span 3 / span 10;
   height: 20vw;
   display: inline-table;
-  /* position: absolute; */
   width: 20vw;
   margin: 2rem 2rem;
   padding: 1rem 1rem;
@@ -145,7 +157,27 @@ grid-area: 4 / 1 / span 3 / span 10;
 div.select {
   grid-area: 4 / 1 / span 2 / span 3;
    background:rgba(100,100,100, 0.6);
+   padding-top: 1.5vw;
+   color: #ffffff;
 }
-/* IF COUNTRY SELECTED grid-area: 4 / 1 / span 4 / span 3; */
+
+div.selected {
+  grid-area: 4 / 1 / span 7 / span 3;
+   background:rgba(3, 3, 3, 0.849);
+   z-index: 10;
+}
+
+.infographic {
+  grid-area: 8 / 1;
+  width: 25vw;
+}
+
+.community {
+  grid-area: 6 / 1;
+  height: 13.1vw;
+  margin-top: 20px;
+}
+
+   
 
 </style>

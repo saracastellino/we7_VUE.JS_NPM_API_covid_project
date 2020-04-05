@@ -1,7 +1,7 @@
 <template>
 <div class="select">
-   <label for="country-selected">Select a Country:</label>
-      <select v-on:click="handleSelect" id="country-selected" v-model="selectedCountry">
+   <label for="country-selected">View Country updates:</label>
+      <select v-on:change.prevent="handleSelect" id="country-selected" v-model="selectedCountry">
         <option disabled value="">Select a country</option>
         <option v-for="(country, index) in countries" :country="country" :key="index">{{country.Country}}</option>
       </select>
@@ -15,7 +15,7 @@ export default {
   name: 'country-list',
   data(){
     return {
-      "selectedCountry": {},
+      "selectedCountry": [],
     }
   },
   props: ["countries"],
