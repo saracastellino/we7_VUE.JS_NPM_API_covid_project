@@ -5,6 +5,12 @@
         <option disabled value="">Select a country</option>
         <option v-for="(country, index) in countries" :country="country" :key="index">{{country.Country}}</option>
       </select>
+
+      <label for="country-selected"><h2>Pin Country:</h2></label>
+      <select v-on:change.prevent="handleSelect2" id="country-selected" v-model="selectedCountry">
+        <option disabled value="">Select a country</option>
+        <option v-for="(country, index) in countries" :country="country" :key="index">{{country.Country}}</option>
+      </select>
 </div>
 </template>
 
@@ -21,11 +27,12 @@ export default {
   props: ["countries"],
   methods: {
     handleSelect(){
-      var selectedCountry;
+      let selectedCountry;
       this.countries.forEach(country => {
         if(country.Country == this.selectedCountry)
         selectedCountry = country;
       });
+      
       eventBus.$emit('country-selected', selectedCountry)
 
     }

@@ -16,7 +16,6 @@
         <country-list :countries="countries"/>
         <country-info :country="country" :class="{selected: country = selectedCountry}"/>
         <GChart id="pie-chart" :country="country"/>
-        <!-- <pinned-countries :country="pinnedCountries"></pinned-countries> -->
       </div>
        
        <img class="infographic" src="./assets/COVID-19-infographic.png" fluid-grow alt="COVID-19 infographic">
@@ -29,8 +28,8 @@
 <script>
 import CountryList from './components/CountryList.vue'
 import CountryInfo from './components/CountryInfo.vue'
-import CountryChart from './components/CountryChart.vue'
-// import CountryPin from './components/CountryPin.vue'
+import TestChart from './components/TestChart.vue'
+import CountryPin from './components/CountryPin.vue'
 import { eventBus } from './main.js';
 
 
@@ -40,15 +39,15 @@ export default {
     return {
       countries: [],
       selectedCountry: {},
-      country: null
-      // pinnedCountries: []
+      country: null,
+      pinnedCountries: []
     }
   },
   components: {
     "country-list": CountryList,
     "country-info": CountryInfo,
-    "GChart": CountryChart
-    // "pinned-countries": CountryPin
+    "GChart": TestChart,
+    "pinned-countries": CountryPin
   },
   methods: {
     get: function() {
@@ -57,9 +56,9 @@ export default {
       .then(data => this.countries = data.Countries)
       .catch( error => { console.log(error); })
       },
-    // addToPinnedd: function() {
-    //   this.pinnedCountries.push(this.selectedCountry)
-    // }
+    addToPinned: function() {
+      this.pinnedCountries.push(this.selectedCountry)
+    }
   },
   filters: {
     formatNumber: function (value) {
