@@ -18,7 +18,7 @@ export default {
    name: 'pinned-countries',
     data(){
     return {
-      "pinnedCountry": []
+       pinnedCountry: null
     }
   },
   props: ["country"],
@@ -28,7 +28,7 @@ export default {
     }
   },
    mounted(){
-    eventBus.$on('pinned-country', (country) => {this.country = country})
+    eventBus.$on('pinned-country', (pinnedCountry) => {this.pinnedCountry = country})
   }
 };
 </script>

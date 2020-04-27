@@ -11,12 +11,17 @@
           <span><h2>Total cases recovered:</h2> <br> <h2 class="red">{{ totalRecovered | formatNumber }}</h2></span>
           <span><h2>Total deaths:</h2> <br> <h2 class="red">{{ totalDeaths | formatNumber }}</h2></span>
       </section>
-            
-      <div class="select">
-        <country-list :countries="countries"/>
-        <country-info :country="country" :class="{selected: country = selectedCountry}"/>
-        <GChart id="pie-chart" :country="country"/>
-      </div>
+
+        <div class="select">
+          <country-list :countries="countries"/>
+          <country-info :country="country" :class="{selected: country = selectedCountry}"/>
+          <GChart id="pie-chart" :country="country"/>
+      
+             <pinned-countries/>
+          <!-- <country-info :country="country" :class="{selected: country = selectedCountry}"/>
+          <GChart id="pie-chart" :country="country"/> -->
+        </div> 
+     
        
        <img class="infographic" src="./assets/COVID-19-infographic.png" fluid-grow alt="COVID-19 infographic">
        <img class="community" src="./assets/community.jpeg" alt="Community action">
@@ -40,7 +45,8 @@ export default {
       countries: [],
       selectedCountry: {},
       country: null,
-      pinnedCountries: []
+      pinnedCountries: [],
+      pinnedCountry: null
     }
   },
   components: {
@@ -55,10 +61,7 @@ export default {
       .then(res => res.json())
       .then(data => this.countries = data.Countries)
       .catch( error => { console.log(error); })
-      },
-    addToPinned: function() {
-      this.pinnedCountries.push(this.selectedCountry)
-    }
+      }
   },
   filters: {
     formatNumber: function (value) {
@@ -81,7 +84,11 @@ export default {
 },
   mounted() {
     this.get()
-     eventBus.$on("country-selected", (country) => {this.selectedCountry = country});
+     eventBus.$on("country-selected", (country) => {this.selectedCountry = country},
+      this.selectedCountry = {},
+      this.country = null
+);
+        eventBus.$on('pinned-country', (pinnedCountry) => {this.pinnedCountry = country})
   }
 }
 </script>
@@ -154,11 +161,12 @@ export default {
   div.select {
     grid-area: 4 / 1 / span 2 / span 3;
     background:rgba(100,100,100, 0.6);
-    padding-top: 1.5vw;
-    padding-bottom: 6vw;
+    padding-top: 1vw;
+    padding-bottom: 1vw;
+    margin-bottom: 1vw;
     color: #ffffff;
-    z-index: 1;
     margin-left: 0.3em;
+    z-index: 10;
   }
 
   div.selected {
@@ -182,7 +190,7 @@ export default {
   .community {
     grid-area: 6 / 1 / span 2 / span 3;
     height: 10em;
-    margin-top: 20px;
+    margin-top: 43px;
     margin-left: 0.3em;
   }
 

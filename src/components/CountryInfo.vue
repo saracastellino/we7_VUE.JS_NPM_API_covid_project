@@ -7,7 +7,7 @@
     <p>Total deaths: {{country.TotalDeaths}}</p>
     <p>New recovered: {{country.NewRecovered}}</p>
     <p>Total recovered: {{country.TotalRecovered}}</p>
-    <button v-on:click="handleButton">Pin Country</button>
+    <button @click="addToPinned" id="pinned-country" v-model="pinnedCountries">Pin Country</button>
     <TestChart :country="country"/>
     <!-- <CountryChart /> -->
   </div>
@@ -22,7 +22,9 @@ export default {
   name: 'country-info',
    data(){
     return {
-      country: null
+      'country': null,
+      'pinnedCountries': [],
+      'pinnedCountry': null
     }
   },
   components: {
@@ -30,9 +32,11 @@ export default {
     "TestChart": TestChart
   },
   methods: {
-    handleButton(){ 
-     eventBus.$emit('pinned-country', this.country)
-      // <country-info :country="country" :class="{select: country = selectedCountry}"/>
+    addToPinned(){
+    //  this.country = this.pinnedCountry
+     this.pinnedCountries.push(this.country)
+     eventBus.$emit('pinned-country', this.country) 
+      this.country = null;
     }
   },
   mounted(){
